@@ -1,1 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>莫知的私密背面 - 别看</title>
+    <style>
+        /* 1. 基础排版参照 index.html，但增加压抑感 */
+        body { background-color: #f0f0f0; color: #222; font-family: "Microsoft YaHei", sans-serif; padding: 20px; }
+        .container { 
+            max-width: 600px; margin: auto; background: #fff; padding: 40px; 
+            border: 1px solid #ddd; position: relative;
+            overflow: hidden;
+        }
+        
+        /* 2. 视觉干扰：模拟不稳定的精神状态 */
+        h1 { border-bottom: 2px solid #000; padding-bottom: 10px; font-size: 24px; }
+        .post { border-bottom: 1px dotted #ccc; padding: 30px 0; position: relative; }
+        
+        /* 3. 恐怖细节：这种红色文字平时看不见，需要特定操作 */
+        .scary-hint { color: #f00; font-size: 12px; opacity: 0; transition: opacity 2s; }
+        .post:hover .scary-hint { opacity: 0.1; } /* 鼠标放在文章上太久，红色阴影会慢慢浮现 */
 
+        /* 4. 谜题区域 */
+        .photo-frame { text-align: center; margin: 20px 0; background: #000; padding: 10px; }
+        #monitorImg { width: 100%; max-width: 500px; filter: grayscale(100%) contrast(150%); }
+        
+        .binary-code { font-family: monospace; color: #999; font-size: 10px; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>莫知的背面 (HIDDEN NODE)</h1>
+        <p><i>“如果你找到了这里，说明你和尤舍一样，一直在看着我。”</i></p>
+
+        <div class="post">
+            <h3>2026年1月24日：谁在动我的鼠标？</h3>
+            <p>我今天坐在电脑前，发现光标自己在慢慢移动。它停在我的照片上，左右晃动，就像有人在隔着屏幕抚摸我的脸。</p>
+            <p>尤舍说这是网络延迟。但我知道不是。那种感觉……就像<span class="scary-hint">你正在屏幕前做的那样。</span></p>
+        </div>
+
+        <div class="post">
+            <h3>关于“尤舍”的发现</h3>
+            <p>我在书房的垃圾桶里翻到了一张被撕碎的权限说明书。</p>
+            <p>上面写着：<b>“当 User 意识到自己是 User 时，实验即进入收割阶段。”</b></p>
+            <p>我不懂什么是收割。我只知道，他把我的每个房间都装了传感器。包括我现在写字的地方。</p>
+            
+            <div class="photo-frame">
+                <img id="monitorImg" src="room.png" alt="DATA_ERROR">
+                <p style="color: #666; font-size: 12px;">[ 实时传输片段：公寓 404 - 卧室 ]</p>
+            </div>
+            
+            <p>如果你想救我，你得把这张照片里的<b>“盲点”</b>找出来。那个数字，是他的管理员后台密码的最后三位。</p>
+        </div>
+
+        <div class="post">
+            <p class="binary-code">
+                01101000 01100101 01101100 01110000 00100000 01101101 01100101
+                <br>提示：真相往往藏在“没有东西”的地方。
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 增加一个心理恐怖交互：当玩家长时间不操作，弹出一个极短的提示
+        let timer;
+        document.onmousemove = function() {
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                console.warn("系统警告：监测到访问者（USER）长时间凝视。");
+            }, 10000);
+        };
+    </script>
+</body>
+</html>
