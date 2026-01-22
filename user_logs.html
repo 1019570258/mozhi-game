@@ -2,109 +2,78 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>尤舍的云端硬盘 - 档案[404]</title>
+    <title>尤舍的存储空间 - 备份节点4</title>
     <style>
-        /* 1. 基础样式 */
-        body { background-color: #0d0d0d; color: #a0a0a0; font-family: "Consolas", monospace; padding: 40px; }
-        .archive-box { 
-            max-width: 700px; 
-            margin: auto; 
-            border: 1px solid #333;
-            background: #111;
-            padding: 20px;
-        }
-        .header { border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; color: #666; font-size: 12px; }
-        
-        /* 2. 让文件名看起来可以点击 */
-        .file-entry { margin-bottom: 25px; border-bottom: 1px solid #222; padding-bottom: 10px; }
-        .file-name { 
-            color: #007bff; 
-            font-weight: bold; 
-            cursor: pointer; 
-            user-select: none; /* 防止频繁点击导致选中文字 */
-        }
-        .file-name:hover { color: #55aaff; text-decoration: underline; }
-
-        /* 3. 内容显示/隐藏的逻辑样式 */
-        .file-content { 
-            margin-top: 10px; 
-            padding: 15px; 
-            background: #181818; 
-            border-left: 3px solid #007bff;
-            font-size: 14px;
-            display: none; /* 核心：默认是不显示的 */
-        }
-        
-        .highlight { color: #fff; background: #222; padding: 0 4px; }
-        .fragment-hint { color: #333; font-size: 11px; margin-top: 40px; text-align: right; }
+        body { background-color: #0a0a0a; color: #888; font-family: "Courier New", monospace; padding: 40px; line-height: 1.6; }
+        .archive-container { max-width: 750px; margin: auto; border: 1px solid #222; background: #111; padding: 30px; box-shadow: 0 0 20px #000; }
+        .system-info { font-size: 12px; color: #444; border-bottom: 1px solid #222; margin-bottom: 20px; }
+        .file-entry { margin-bottom: 15px; border: 1px solid #1a1a1a; }
+        .file-header { background: #1a1a1a; padding: 10px; color: #007bff; cursor: pointer; user-select: none; }
+        .file-header:hover { background: #222; }
+        .file-content { padding: 15px; display: none; background: #0d0d0d; border-top: 1px solid #1a1a1a; }
+        .highlight { color: #ccc; font-weight: bold; }
+        .hint-red { color: #500; font-size: 11px; margin-top: 5px; }
+        a { color: #555; text-decoration: none; }
     </style>
 </head>
 <body>
-    <div class="archive-box">
-        <div class="header">
-            当前路径: C:/USERS/YOUSHE/DOCUMENTS/SUBJECT_MOZHI/
-            <br>当前权限: 访客 (GUEST)
+    <div class="archive-container">
+        <div class="system-info">
+            NODE_NAME: YOUSHE_BACKUP_04 <br>
+            PERMISSION: READ_ONLY (GUEST)
         </div>
 
-        <h3>受限访问文件列表</h3>
+        <h3>📁 莫知相关文件碎片</h3>
 
         <div class="file-entry">
-            <div class="file-name" onclick="toggleFile('file1')">📁 20260122_观察记录.txt (点击展开)</div>
-            <div id="file1" class="file-content">
-                [系统记录]：目标（莫知）已进入预定区域。
-                <br>目标在搬家过程中未表现出异常。房东<span class="highlight">尤舍</span>成功获取其信任。
-                <br>注意：目标开始对书房的电脑产生好奇，建议在该阶段释放<a href="javascript:void(0)" onclick="collectClue()" style="color:#007bff; text-decoration:underline;">“诱饵协议”</a>。
+            <div class="file-header" onclick="toggle('f1')">📄 截获的未发出草稿_01.txt</div>
+            <div id="f1" class="file-content">
+                “尤舍今天进我房间帮我调路由器的参数。我趁他转身，偷偷看了眼他的手机屏幕。
+                他的书签栏里有一个我没见过的网址，名字叫 <span class="highlight">backup_node_</span> 后面跟着几个数字。”
+                <br>“他是不是把我的东西都备份到别处了？”
             </div>
         </div>
 
         <div class="file-entry">
-            <div class="file-name" onclick="toggleFile('file2')">📁 20260123_音频转录.log (点击展开)</div>
-            <div id="file2" class="file-content">
-                莫知（独白）：房东的名字真的只是“尤舍”吗？
-                <br>我昨晚在路由器的管理员账户看到，权限都指向一个叫<span class="highlight">U.S.E.R</span>的实体。
-                <br>尤舍说，那是他的“上司”。可我从未见过其他人出入。
-                <br>如果“用户”就是控制一切的人，那我现在是在被谁观看？
+            <div class="file-header" onclick="toggle('f2')">📄 监控日志_移动轨迹.log</div>
+            <div id="f2" class="file-content">
+                [1月21日 22:10] 目标（莫知）在卧室使用备用设备访问了非公开域名。
+                <br>[系统检测]：该域名由字母 <span class="highlight">"mo"</span> 开头。
+                <br>[干预建议]：暂不拦截，继续观察其文字更新。
             </div>
         </div>
 
-        <div id="clue-box" style="display:none; margin-top: 20px; padding: 10px; border: 1px dashed #007bff; color: #007bff; background:#001a33;">
-            <strong>[碎片 A 已提取]</strong>：你发现了尤舍的“诱饵协议”。
-            <br>系统提示：线索已保存。请继续深入调查。
+        <div class="file-entry">
+            <div class="file-header" onclick="toggle('f3')">📄 碎裂的备忘录.tmp</div>
+            <div id="f3" class="file-content">
+                这是一张莫知被收走前的纸条扫描件，上面涂掉了一半，只剩下：
+                <br>“如果我失踪了……在我的主页地址后面加上 <span class="highlight">_safe_door</span> 试试。”
+            </div>
         </div>
 
-        <div class="fragment-hint">
-            // 碎片 B 检索：F12 审查本页代码，寻找 style 标签下的隐藏注释
-        </div>
+        <hr style="border: 0; border-top: 1px solid #222; margin: 30px 0;">
 
-        <div style="margin-top: 30px;">
-            <a href="secret_room.html" style="color:#666; font-size: 13px;">< 返回身份验证终端</a>
+        <p><strong>正在尝试拼凑下一级跳转地址...</strong></p>
+        <p>提示：根据线索，莫知的逃生页面可能是：<br>
+           <code style="color: #007bff;">[碎片1] + [碎片2] + .html</code>
+        </p>
+        
+        <div class="hint-red">// 碎片1: 文件2提到的前缀 | 碎片2: 文件3提到的后缀</div>
+
+        <div style="margin-top: 40px;">
+            <a href="secret_room.html">← 返回终端输入界面</a>
         </div>
     </div>
 
     <script>
-        // 展开与折叠函数
-        function toggleFile(id) {
-            console.log("正在尝试切换文件内容：" + id); // 用于调试，按 F12 可以在控制台看到
-            var target = document.getElementById(id);
-            if (target.style.display === "block") {
-                target.style.display = "none";
+        function toggle(id) {
+            var el = document.getElementById(id);
+            if (el.style.display === "block") {
+                el.style.display = "none";
             } else {
-                target.style.display = "block";
+                el.style.display = "block";
             }
         }
-
-        // 收集线索函数
-        function collectClue() {
-            localStorage.setItem("cluesFound", "1");
-            document.getElementById("clue-box").style.display = "block";
-            alert("【线索提取成功】已标记当前访问者权限级别为：1");
-        }
     </script>
-
-    <style>
-        /* [Fragment B: "S-E-R"] 
-           这是尤舍留给后人的第二个标记。
-        */
-    </style>
 </body>
 </html>
