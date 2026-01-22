@@ -2,77 +2,78 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>尤舍的存储空间 - 备份节点4</title>
+    <title>尤舍的物理备份 - 卷宗 404</title>
     <style>
-        body { background-color: #0a0a0a; color: #888; font-family: "Courier New", monospace; padding: 40px; line-height: 1.6; }
-        .archive-container { max-width: 750px; margin: auto; border: 1px solid #222; background: #111; padding: 30px; box-shadow: 0 0 20px #000; }
-        .system-info { font-size: 12px; color: #444; border-bottom: 1px solid #222; margin-bottom: 20px; }
-        .file-entry { margin-bottom: 15px; border: 1px solid #1a1a1a; }
-        .file-header { background: #1a1a1a; padding: 10px; color: #007bff; cursor: pointer; user-select: none; }
-        .file-header:hover { background: #222; }
-        .file-content { padding: 15px; display: none; background: #0d0d0d; border-top: 1px solid #1a1a1a; }
-        .highlight { color: #ccc; font-weight: bold; }
-        .hint-red { color: #500; font-size: 11px; margin-top: 5px; }
-        a { color: #555; text-decoration: none; }
+        /* 1. 档案室风格：米色纸张质感 */
+        body { background-color: #e8e6e1; color: #333; font-family: "Noto Serif SC", serif; padding: 40px; line-height: 1.8; }
+        .folder { 
+            max-width: 800px; 
+            margin: auto; 
+            background: #fdfaf5; 
+            padding: 50px; 
+            border: 1px solid #d3cfc5;
+            box-shadow: 10px 10px 0px #d3cfc5; /* 模拟文件夹层叠感 */
+        }
+        .stamp { 
+            border: 3px solid #b22222; color: #b22222; padding: 5px 10px; 
+            display: inline-block; transform: rotate(-15deg); font-weight: bold; margin-bottom: 20px;
+        }
+        .file-entry { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .file-title { color: #555; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; }
+        .file-title:hover { color: #000; }
+        .content { display: none; padding: 20px; background: #f7f3ed; margin-top: 10px; font-size: 15px; border: 1px dashed #ccc; }
+        
+        /* 隐藏线索样式 */
+        .invisible-ink { color: transparent; cursor: default; transition: color 0.5s; }
+        .invisible-ink:hover { color: #b22222; } /* 鼠标扫过才显现红色字迹 */
+        
+        .hint-footer { margin-top: 50px; font-size: 13px; color: #888; border-top: 2px solid #333; padding-top: 10px; }
     </style>
 </head>
 <body>
-    <div class="archive-container">
-        <div class="system-info">
-            NODE_NAME: YOUSHE_BACKUP_04 <br>
-            PERMISSION: READ_ONLY (GUEST)
-        </div>
-
-        <h3>📁 莫知相关文件碎片</h3>
+    <div class="folder">
+        <div class="stamp">INTERNAL ONLY / 内部传阅</div>
+        <h2>项目：[莫知] 调查记录汇总</h2>
+        <p style="font-size: 14px;">索引编号：YS-2026-X</p>
 
         <div class="file-entry">
-            <div class="file-header" onclick="toggle('f1')">📄 截获的未发出草稿_01.txt</div>
-            <div id="f1" class="file-content">
-                “尤舍今天进我房间帮我调路由器的参数。我趁他转身，偷偷看了眼他的手机屏幕。
-                他的书签栏里有一个我没见过的网址，名字叫 <span class="highlight">backup_node_</span> 后面跟着几个数字。”
-                <br>“他是不是把我的东西都备份到别处了？”
+            <div class="file-title" onclick="toggle('c1')"><span>📄 语音记录碎片 (Index: 13-15)</span> <span>[展开]</span></div>
+            <div id="c1" class="content">
+                莫知：“我发现尤舍总是在下午 <span style="font-weight: bold;">04:12</span> 准时离开房间。我试过推他的门，但门锁需要一个六位数的后缀。”
+                <br>（注：13和15分别对应英文字母表的 M 和 O）
             </div>
         </div>
 
         <div class="file-entry">
-            <div class="file-header" onclick="toggle('f2')">📄 监控日志_移动轨迹.log</div>
-            <div id="f2" class="file-content">
-                [1月21日 22:10] 目标（莫知）在卧室使用备用设备访问了非公开域名。
-                <br>[系统检测]：该域名由字母 <span class="highlight">"mo"</span> 开头。
-                <br>[干预建议]：暂不拦截，继续观察其文字更新。
+            <div class="file-title" onclick="toggle('c2')"><span>📄 观察员手记：异常行为</span> <span>[展开]</span></div>
+            <div id="c2" class="content">
+                “目标似乎在主站之外建立了一个私密节点。我拦截到了她的一段自言自语，她提到了一个词：<span class="invisible-ink">SECRET</span>。
+                她说，这个词就是通往她那个秘密空间的‘钥匙’。”
+                <br><br><i>（注：上面的红字只有用鼠标扫过才会显示）</i>
             </div>
         </div>
 
         <div class="file-entry">
-            <div class="file-header" onclick="toggle('f3')">📄 碎裂的备忘录.tmp</div>
-            <div id="f3" class="file-content">
-                这是一张莫知被收走前的纸条扫描件，上面涂掉了一半，只剩下：
-                <br>“如果我失踪了……在我的主页地址后面加上 <span class="highlight">_safe_door</span> 试试。”
+            <div class="file-title" onclick="toggle('c3')"><span>📄 莫知的备忘纸条</span> <span>[展开]</span></div>
+            <div id="c3" class="content">
+                “万一我消失了，记住：把我的<span style="text-decoration: underline;">名字首字母</span>，加上那个<span style="text-decoration: underline;">隐藏的单词</span>，最后接上我的<span style="text-decoration: underline;">生日</span>，那就是我最后能躲的地方。”
             </div>
         </div>
 
-        <hr style="border: 0; border-top: 1px solid #222; margin: 30px 0;">
+        <div class="hint-footer">
+            <p><strong>地址拼凑逻辑：</strong> [线索1: 13-15字母] + [线索2: 隐藏词] + [线索3: 生日] + .html</p>
+            <p>例如：如果字母是 ab，词是 door，生日是 0101，则地址为 <code>abdoor0101.html</code></p>
+        </div>
 
-        <p><strong>正在尝试拼凑下一级跳转地址...</strong></p>
-        <p>提示：根据线索，莫知的逃生页面可能是：<br>
-           <code style="color: #007bff;">[碎片1] + [碎片2] + .html</code>
-        </p>
-        
-        <div class="hint-red">// 碎片1: 文件2提到的前缀 | 碎片2: 文件3提到的后缀</div>
-
-        <div style="margin-top: 40px;">
-            <a href="secret_room.html">← 返回终端输入界面</a>
+        <div style="margin-top: 30px; text-align: right;">
+            <a href="secret_room.html" style="color: #333; font-size: 14px;">返回终端控制台 →</a>
         </div>
     </div>
 
     <script>
         function toggle(id) {
             var el = document.getElementById(id);
-            if (el.style.display === "block") {
-                el.style.display = "none";
-            } else {
-                el.style.display = "block";
-            }
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
         }
     </script>
 </body>
