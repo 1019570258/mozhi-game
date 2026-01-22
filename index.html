@@ -7,8 +7,24 @@
         body { background-color: #f4f4f4; color: #333; font-family: "Microsoft YaHei", sans-serif; line-height: 1.6; padding: 20px; }
         .container { max-width: 600px; margin: auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .post { border-bottom: 1px solid #eee; padding: 20px 0; }
-        .secret-link { color: #f4f4f4; text-decoration: none; cursor: default; } /* 隐藏的链接 */
-        .secret-link:hover { color: #ff4d4d; } /* 只有鼠标悬停才会发现不对劲 */
+        
+        /* 图片样式 */
+        .photo-frame {
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer; /* 鼠标移上去变手指，暗示可以点击 */
+        }
+        .photo-frame img {
+            width: 100%;
+            max-width: 500px;
+            border: 5px solid #fff;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        .photo-frame img:hover {
+            transform: scale(1.01); /* 鼠标悬停轻微放大 */
+        }
+        .hint-text { color: #999; font-size: 0.8em; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -19,21 +35,33 @@
         
         <div class="post">
             <h3>2026年1月22日：搬家</h3>
-            <p>终于搬进新公寓了。虽然房东 <strong>Long Zhiche</strong> 看起来怪怪的，总是在走廊里盯着我，但租金真的很便宜。</p>
-            <img src="room.png" alt="莫知的房间" style="width:100%; max-width:500px; display:block; margin:20px auto;">
+            <p>房东 <strong>Long Zhiche</strong> 帮我把最后两个纸箱搬进了卧室。这间屋子虽然旧了点，但窗外的景色我真的很喜欢。</p>
+            
+            <div class="photo-frame">
+                <img id="roomImage" src="room.png" alt="我的新房间" onclick="toggleImage()">
+                <p class="hint-text">（莫知随手拍下的房间照片，点击图片放大查看细节）</p>
+            </div>
+            <p>但我总觉得，这些家具的位置和我看房时不太一样……</p>
         </div>
 
         <div class="post">
-            <h3>2026年1月23日：声音</h3>
-            <p>墙壁里好像有水流声。我试着找源头，我发现声音是从 <a href="secret_room.html" class="secret_room.html">衣柜后面</a> 传出来的。</p>
-            <p>奇怪，我刚才写了什么？我怎么不记得写过这段话？</p>
+            <p>如果你发现了什么不对劲，请<a href="secret_room.html" style="color:#666; text-decoration:none;">进入后台留言</a>。</p>
         </div>
-
-        <div class="post" style="color: #999; font-size: 0.8em;">
-            <p>最后更新于：3小时前 (已断开连接)</p>
-        </div>
-        
     </div>
 
-    </body>
+    <script>
+        // 实现点击切换图片的函数
+        function toggleImage() {
+            var img = document.getElementById("roomImage");
+            // 如果当前是正常图，就换成隐藏图
+            if (img.src.match("room.png")) {
+                img.src = "roomhide.png";
+                console.log("线索已显现...");
+            } else {
+                // 再次点击可以换回来
+                img.src = "room.png";
+            }
+        }
+    </script>
+</body>
 </html>
