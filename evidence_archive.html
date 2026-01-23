@@ -1,1 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>系统底层存档 - [米时的遗言]</title>
+    <style>
+        body { background-color: #1a1a1a; color: #444; font-family: "Courier New", monospace; overflow-x: hidden; }
+        
+        /* 容器：模拟老旧监视器效果 */
+        .archive-wrapper { 
+            max-width: 800px; margin: 40px auto; background: #c0c0c0; 
+            border: 4px solid #888; padding: 0; box-shadow: inset 2px 2px 10px #000;
+        }
 
+        .header-bar { background: #000080; color: white; padding: 5px 10px; font-weight: bold; display: flex; justify-content: space-between; }
+        
+        /* 内容区：叠加态视觉核心 */
+        .content-body { padding: 30px; position: relative; background: #e0e0e0; min-height: 500px; }
+
+        /* 系统文字：干扰项 */
+        .system-layer { color: #bbb; user-select: none; line-height: 1.2; font-size: 12px; }
+
+        /* 米时的笔记：隐藏层 */
+        .mishi-layer { 
+            position: absolute; top: 30px; left: 30px; right: 30px;
+            color: rgba(255, 0, 0, 0.1); /* 初始极淡，全选后显现 */
+            font-size: 18px; font-weight: bold; pointer-events: none;
+            mix-blend-mode: darken;
+        }
+
+        /* 全选时的颜色：解谜关键 */
+        ::selection { background: #000; color: #ff0000 !important; }
+
+        /* 解密终端 */
+        .terminal { background: #000; color: #0f0; padding: 20px; margin-top: 20px; font-family: monospace; }
+        .terminal input { background: #000; border: 1px solid #0f0; color: #0f0; width: 100px; }
+
+        .loop-btn { color: #0000ff; text-decoration: underline; cursor: pointer; }
+        
+        /* 疯狂的涂鸦文字 */
+        .blood { color: #800; text-decoration: line-through; }
+    </style>
+</head>
+<body>
+
+<div class="archive-wrapper">
+    <div class="header-bar">
+        <span>ARCHIVE_DEPT_404 // SUBJECT: MI_SHI</span>
+        <span onclick="tryExit()" style="cursor:help;">[X]</span>
+    </div>
+
+    <div class="content-body">
+        <div class="system-layer">
+            STABLE LOG DATA STABLE LOG DATA STABLE LOG DATA STABLE LOG DATA<br>
+            NORMAL STATUS NORMAL STATUS NORMAL STATUS NORMAL STATUS NORMAL STATUS<br>
+            ... (此处重复千百次) ...
+        </div>
+
+        <div class="mishi-layer">
+            <p>我是米时。我快要消失了。<br>
+            尤舍的守则是陷阱！<br>
+            规则1说2点宵禁？<span class="blood">那是骗你的</span>。真正的死线要提前 <span style="font-size:30px">5</span> 个小时。记下这个偏移。<br><br>
+            他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...<br><br>
+            数数上面我写了几个“他在听”。那是第二位数字。<br><br>
+            密码的最后：莫知提到的呼吸频率 [28] 减去规则值 [20]，得到的那个数字，再乘以 <span style="border:1px solid red">2</span>。<br><br>
+            别想往前走。这个页面是死循环。所有的链接都会带你回到这里。<br>
+            唯一的出口在你走过的路上。
+            </p>
+        </div>
+    </div>
+
+    <div class="terminal">
+        <div>[LOGIC_LOCK_v0.99]</div>
+        <div>请输入从米时笔记中提取的序列:</div>
+        <input type="text" id="mishi_code" placeholder="序列输入">
+        <button onclick="checkMishi()">验证</button>
+        <p id="hint-msg" style="color:#555; font-size:10px;"></p>
+    </div>
+</div>
+
+<script>
+    // 逻辑 A 计算：
+    // 1. 宵禁偏移：5
+    // 2. “他在听”出现的次数：代码中我写了 20 次
+    // 3. (28-20)*2 = 16
+    // 最终组合序列：52016
+
+    function checkMishi() {
+        const val = document.getElementById('mishi_code').value;
+        if(val === '52016') {
+            document.getElementById('hint-msg').innerHTML = "逻辑正确。系统检测到‘回退’意识。请点击浏览器【后退】按钮三次以跳出循环。";
+            // 这里利用 sessionStorage 记录状态，配合后退逻辑
+            sessionStorage.setItem("escaped", "true");
+        } else {
+            alert("米时的灵魂在尖叫：‘数字不对！你在被尤舍同化！’");
+        }
+    }
+
+    // 莫比乌斯环逻辑：点击页面会刷新
+    document.addEventListener('click', function(e) {
+        if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
+            console.log("循环已重置...");
+        }
+    });
+
+    function tryExit() {
+        alert("你点不开的。在这个档案库里，前进就是后退，后退才是唯一的生机。");
+    }
+
+    // 监听后退事件（高级技巧：模拟莫比乌斯环突破）
+    window.onpopstate = function(event) {
+        if(sessionStorage.getItem("escaped") === "true") {
+            alert("你终于逃出了档案库。正在进入莫知最后的藏身处...");
+            window.location.href = "last_sanctuary.html";
+        }
+    };
+    // 维持历史状态以便能“后退”
+    history.pushState(null, null, document.URL);
+</script>
+
+</body>
+</html>
