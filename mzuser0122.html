@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>莫知的背面 - 观测记录与警告</title>
     <style>
-        /* 基础样式：纸张质感 */
+        /* 基础样式 */
         body { background-color: #d1d1d1; color: #1a1a1a; font-family: "Slabo 27px", serif; padding: 20px; line-height: 1.6; }
         .container { 
             max-width: 650px; margin: auto; background: #fff; padding: 40px; 
@@ -12,18 +12,32 @@
             position: relative;
         }
         
-        /* 规则怪谈列表样式 */
+        /* 规则怪谈列表 */
         .rule-list { background: #f9f9f9; padding: 20px; border: 1px inset #ccc; font-size: 14px; line-height: 2; margin-bottom: 30px; }
         .rule-list h2 { text-align: center; text-decoration: underline; color: #b22222; }
         .important { color: #b22222; font-weight: bold; cursor: help; }
         
-        /* 隐形文字：玩家需要全选（Ctrl+A）才能看到的违规规则 */
-        .hidden-rule { color: #fff; user-select: none; }
-        ::selection { background: #b22222; color: #fff; }
+        /* 【关键修复】全选时的颜色设置 */
+        /* 当玩家按下 Ctrl+A 时，背景变为血红色，文字变为纯白，隐藏的规则 6 就会像伤疤一样显现 */
+        ::selection { 
+            background: #b22222 !important; 
+            color: #ffffff !important; 
+        }
+        /* 兼容火狐浏览器 */
+        ::-moz-selection { 
+            background: #b22222 !important; 
+            color: #ffffff !important; 
+        }
 
-        /* 实验日记样式 */
+        /* 隐藏规则 6 的初始状态：完全透明且不占位（或颜色与背景一致） */
+        .hidden-rule { 
+            color: transparent; 
+            user-select: text; 
+            transition: color 0.3s;
+        }
+
+        /* 实验日记 */
         .diary-section { border-left: 3px solid #b22222; padding-left: 15px; margin-top: 30px; font-style: italic; color: #444; }
-        .blood-stain { color: #800; font-weight: bold; }
         .coordinate { color: #800; font-weight: bold; text-decoration: underline; cursor: pointer; }
 
         /* 解码器面板 */
@@ -33,7 +47,7 @@
         }
         .code-input { background: #000; border: 1px solid #0f0; color: #0f0; width: 45px; text-align: center; margin: 0 5px; }
         
-        /* 鼠标视线跟随 */
+        /* 鼠标跟随视线 */
         #watcher {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
@@ -52,7 +66,7 @@
         <p>尤舍说这是为了我的安全，但我总觉得，这上面的每一条都在指涉<span class="important">现在的你</span>。</p>
 
         <div class="rule-list">
-            <h2>《404号公寓安全守脱》</h2>
+            <h2>《404号公寓安全守则》</h2>
             <p>1. 请确保在深夜 2 点后关闭所有电子设备的摄像头。公寓不提供任何形式的实时直播服务。</p>
             <p>2. 如果你听到墙壁内传来类似打字的声音，请忽略它。那是建筑结构受热膨胀的正常现象。</p>
             <p>3. <span class="important">尤</span>舍房东不会在凌晨三点敲门要求查看水表。如果门外有人自称房东，请不要回应。</p>
@@ -80,10 +94,6 @@
             <p>凌晨三点，敲门声响了。我没有回应，只是通过猫眼观察。走廊灯闪烁了 <span class="coordinate" onclick="collect(2, '12')">【12】</span> 下。在那之后，我感觉到手机微微发烫，显示有 <span class="coordinate" onclick="collect(3, '0')">【0】</span> 个未接来电，但通话记录里全是空白。</p>
         </div>
 
-        <div class="diary-section">
-            <p>我发现他最怕的是这三个数字的组合：<strong>倒影、闪烁、电量</strong>。他称之为“系统漏洞”。</p>
-        </div>
-
         <div class="decoder-grid">
             <div>STATUS: MONITORING_USER</div>
             <div>ENTRY_CODE: <span id="p1">?</span> - <span id="p2">?</span> - <span id="p3">?</span></div>
@@ -98,25 +108,22 @@
 
         <div class="post-meta">
             —— 莫知最后留下的标记：看那些标红的字。
-            <br>全选页面，看看规则第6条。
+            <br>全选页面 (Ctrl+A)，看看规则第6条。
         </div>
     </div>
 
     <script>
-        // 1. 鼠标跟随逻辑
         const watcher = document.getElementById('watcher');
         document.addEventListener('mousemove', (e) => {
             watcher.style.setProperty('--x', e.clientX + 'px');
             watcher.style.setProperty('--y', e.clientY + 'px');
         });
 
-        // 2. 线索收集逻辑
         function collect(pos, val) {
             document.getElementById('p' + pos).innerText = val;
             alert("提取成功：已获得碎片数据 " + val);
         }
 
-        // 3. 解码逻辑
         function checkCode() {
             const v1 = document.getElementById('i1').value;
             const v2 = document.getElementById('i2').value;
