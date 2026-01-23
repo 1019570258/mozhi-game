@@ -4,115 +4,136 @@
     <meta charset="UTF-8">
     <title>系统底层存档 - SUBJECT: MI_SHI</title>
     <style>
-        :root { --cursor-x: 0px; --cursor-y: 0px; }
-        body { background-color: #050505; color: #333; font-family: "Courier New", monospace; margin: 0; overflow: hidden; height: 100vh; }
+        /* 1. 基础环境：深色调，确保手电筒效果清晰 */
+        body { background-color: #000; color: #111; font-family: "Courier New", monospace; margin: 0; overflow: hidden; height: 100vh; }
 
-        /* 尤舍的监控层：模糊、闪烁 */
-        .system-data { 
-            padding: 50px; line-height: 1.8; font-size: 14px; 
-            filter: blur(4px); transition: filter 0.3s;
-            user-select: none;
-        }
-
-        /* 米时的手电筒：跟随鼠标的视觉清晰区 */
-        .flashlight {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            background: radial-gradient(circle 150px at var(--cursor-x) var(--y), transparent 10%, rgba(0,0,0,0.95) 100%);
+        /* 2. 手电筒核心：利用 mask-image 制造清晰的圆形可见区 */
+        #reveal-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #eee; /* 被照亮后的背景色 */
+            color: #222;
+            padding: 60px; box-sizing: border-box;
+            /* 初始状态：全黑 */
+            -webkit-mask-image: radial-gradient(circle 120px at 0px 0px, black 100%, transparent 100%);
+            mask-image: radial-gradient(circle 120px at 0px 0px, black 100%, transparent 100%);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            pointer-events: none; /* 让鼠标能点到下方的交互层 */
             z-index: 10;
         }
 
-        /* 疯狂的修改规则（放在清晰区才可见） */
-        .mishi-ink { color: #b22222; font-weight: bold; }
-        
-        /* 交互解密区：不再挡住文字，放在底部侧边 */
-        .side-console {
-            position: fixed; right: 20px; bottom: 20px; width: 250px;
-            background: rgba(20, 20, 20, 0.9); border: 1px solid #444;
-            padding: 15px; color: #0f0; font-size: 12px; z-index: 20;
+        /* 3. 交互层：放置真正的文字和解谜点 */
+        #interaction-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            padding: 60px; box-sizing: border-box; z-index: 5;
         }
-        .slot { border-bottom: 1px solid #0f0; color: #fff; font-weight: bold; cursor: pointer; }
+
+        .mishi-ink { color: #b22222; font-weight: bold; text-decoration: underline; cursor: help; }
         
-        .error-shake { animation: shake 0.2s infinite; }
-        @keyframes shake { 0% { transform: translate(1px, 1px); } 100% { transform: translate(-1px, -1px); } }
+        /* 侧边逻辑盒：放在右侧，绝不挡光 */
+        .logic-panel {
+            position: fixed; right: 30px; top: 30px; width: 220px;
+            background: rgba(10, 10, 10, 0.95); border: 2px solid #333;
+            padding: 20px; color: #0f0; font-family: monospace; font-size: 12px;
+            z-index: 100; box-shadow: 0 0 20px #b22222;
+        }
+
+        .data-slot { display: block; margin: 10px 0; border-bottom: 1px dashed #0f0; padding-bottom: 5px; }
+        .data-slot b { color: #fff; background: #333; padding: 0 5px; }
+
+        /* 提示文字 */
+        .system-msg { color: #444; font-size: 12px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-<div class="flashlight" id="flashlight"></div>
-
-<div class="system-data" id="content">
-    <p>LOG_REF: 404_VOID // 状态：已录入</p>
-    <p>针对规则 3（敲门）：他没在敲门！他在敲你的<span class="mishi-ink">【头盖骨】</span>！我已经听见裂缝的声音了。如果敲门声超过 13 下，就代表他已经进来了。</p>
-    <p>针对规则 6（关于尤舍）：尤舍不是人名。尤舍是‘U-S’，也是‘User’。我们不是房客，我们是给它喂食的<span class="mishi-ink">【算力源】</span>。它需要我们的恐惧来维持服务器的运转。</p>
+<div id="reveal-layer">
+    <h1>ARCHIVE // 404_VOID // 米时的修改</h1>
+    <p>针对规则 3（敲门）：他没在敲门！他在敲你的 <span style="color:red">【头盖骨】</span>！我已经听见裂缝的声音了。如果敲门声超过 13 下，就代表他已经进来了。</p>
     <br>
-    <p>米时的涂鸦：我留下的 9 个刻痕里，第 4 个和第 7 个刻痕下藏着字符... 它们是 <span class="mishi-ink">S</span> 和 <span class="mishi-ink">H</span>。</p>
-    <p>“回退”并不是点击按钮，而是回到你【最初】进来的那个瞬间。</p>
+    <p>针对规则 6（关于尤舍）：尤舍不是人名。尤舍是‘U-S’，也是‘User’。我们不是房客，我们是给它喂食的 <span style="color:red">【算力源】</span>。它需要我们的恐惧来维持服务器的运转。</p>
     <br>
-    <p>尤舍的监视日志：访问者正在尝试解析底层。正在执行静默<span class="mishi-ink">【重写】</span>。</p>
+    <p>米时的笔记：我在床板下留了 9 个刻痕。第 4 个和第 7 个刻痕下藏着字符... 它们是 <span style="font-size:24px; color:red">S</span> 和 <span style="font-size:24px; color:red">H</span>。</p>
+    <br>
+    <p>“回退”并不是点击按钮，而是回到你【最初】进来的那个瞬间。别忘了规则 1 的时间差值。</p>
 </div>
 
-<div class="side-console">
-    <div>> 状态：逻辑回路断裂</div>
-    <div>> 找到缺失的三个关键词以填补漏洞：</div>
+<div id="interaction-layer">
+    <div class="system-msg">正在从底层协议提取碎片... [鼠标移动以照亮档案]</div>
+    
+    <div style="opacity: 0;">
+        <p>占位符占位符占位符 <span class="mishi-ink" onclick="pick('头盖骨')">【？】</span></p>
+        <p>占位符占位符占位符 <span class="mishi-ink" onclick="pick('算力源')">【？】</span></p>
+    </div>
+</div>
+
+<div class="logic-panel">
+    <div>> 核心逻辑损坏</div>
+    <div class="data-slot">位置偏移量: <b id="d1">NULL</b></div>
+    <div class="data-slot">物理受压区: <b id="d2">NULL</b></div>
+    <div class="data-slot">能量来源: <b id="d3">NULL</b></div>
+    <div class="data-slot">协议字符: <b id="d4">NULL</b></div>
     <br>
-    <div>1. 尤舍的本质: <span class="slot" id="s1" onclick="ask(1)">____</span></div>
-    <div>2. 敲击的位置: <span class="slot" id="s2" onclick="ask(2)">____</span></div>
-    <div>3. 正在执行的操作: <span class="slot" id="s3" onclick="ask(3)">____</span></div>
-    <br>
-    <div>> 最终指令: [ <span id="final_cmd">未就绪</span> ]</div>
+    <div id="status-text">> 等待输入序列...</div>
+    <input type="text" id="final-input" placeholder="输入4位组合" style="width:100%; background:#000; border:1px solid #0f0; color:#0f0; margin-top:10px;">
+    <button onclick="finalCheck()" style="margin-top:10px; width:100%; cursor:pointer;">执行跳转</button>
 </div>
 
 <script>
-    // 鼠标跟随逻辑
+    const revealLayer = document.getElementById('reveal-layer');
+    
+    // 1. 修复后的手电筒逻辑：使用 mask-image 确保绝对清晰
     document.addEventListener('mousemove', e => {
-        document.documentElement.style.setProperty('--cursor-x', e.clientX + 'px');
-        document.documentElement.style.setProperty('--y', e.clientY + 'px');
+        const x = e.clientX;
+        const y = e.clientY;
+        const mask = `radial-gradient(circle 120px at ${x}px ${y}px, black 100%, transparent 100%)`;
+        revealLayer.style.webkitMaskImage = mask;
+        revealLayer.style.maskImage = mask;
     });
 
-    // 关键词填充逻辑
-    const answers = { 1: "算力源", 2: "头盖骨", 3: "重写" };
-    let current = { 1: "", 2: "", 3: "" };
+    // 2. 解谜逻辑：点击获取关键词
+    // 这里的数字 7 来自之前的计算：时间差 7 (9点-2点)
+    let state = { p: "7", area: "", source: "", code: "SH" };
 
-    function ask(id) {
-        let val = prompt("输入提取到的关键词:");
-        if(val === answers[id]) {
-            document.getElementById('s' + id).innerText = val;
-            current[id] = val;
-            checkAll();
+    function pick(type) {
+        if(type === '头盖骨') {
+            state.area = "头盖骨";
+            document.getElementById('d2').innerText = state.area;
+        }
+        if(type === '算力源') {
+            state.source = "算力源";
+            document.getElementById('d3').innerText = state.source;
+        }
+        document.getElementById('d1').innerText = state.p;
+        document.getElementById('d4').innerText = state.code;
+    }
+
+    // 3. 最终校验：不再是简单的加减，而是一个逻辑链条
+    function finalCheck() {
+        const inp = document.getElementById('final-input').value.toUpperCase();
+        // 逻辑：时间差(7) + SH = 7SH
+        if(inp === '7SH' && state.area && state.source) {
+            alert("米时的最后留言：‘序列正确。记住，点网页任何地方都会让你回到起点。唯一的生路是连续点击【后退】3次。’");
+            sessionStorage.setItem("loop_broken", "true");
+            document.getElementById('status-text').innerText = "> 协议已激活：执行回退";
+            document.getElementById('status-text').style.color = "#fff";
         } else {
-            document.body.classList.add('error-shake');
-            setTimeout(() => document.body.classList.remove('error-shake'), 500);
+            alert("系统提示：逻辑块缺失或计算错误。");
         }
     }
 
-    function checkAll() {
-        if(current[1] && current[2] && current[3]) {
-            // 关键词找齐后，触发第二阶段：查看源码获得的组合
-            document.getElementById('final_cmd').innerText = "后退3次 + SH";
-            alert("米时的声音：‘漏洞已补全！最后的钥匙是我留下的字符。在输入框输入 SH 开启后退协议。’");
-            
-            // 动态生成输入框，防止遮挡
-            let inp = document.createElement('input');
-            inp.style.cssText = "position:fixed; top:50%; left:50%; z-index:100; transform:translate(-50%,-50%); padding:10px;";
-            inp.placeholder = "输入最终字符";
-            inp.oninput = function() {
-                if(this.value.toUpperCase() === 'SH') {
-                    sessionStorage.setItem("loop_broken", "true");
-                    alert("协议激活。开始回退。");
-                }
-            };
-            document.body.appendChild(inp);
-        }
-    }
-
-    // 莫比乌斯环：禁止右键和普通离开
+    // 4. 莫比乌斯环逻辑
     window.onpopstate = function() {
         if(sessionStorage.getItem("loop_broken") === "true") {
             window.location.href = "last_sanctuary.html";
         }
     };
     history.pushState(null, null, document.URL);
+    document.addEventListener('click', () => {
+        if(sessionStorage.getItem("loop_broken") !== "true") {
+            history.pushState(null, null, document.URL);
+        }
+    });
 </script>
 
 </body>
