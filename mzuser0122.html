@@ -2,73 +2,133 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>莫知的私密背面 - 别看</title>
+    <title>莫知的背面 - 观测记录与警告</title>
     <style>
-        /* 1. 基础排版参照 index.html，但增加压抑感 */
-        body { background-color: #f0f0f0; color: #222; font-family: "Microsoft YaHei", sans-serif; padding: 20px; }
+        /* 基础样式：纸张质感 */
+        body { background-color: #d1d1d1; color: #1a1a1a; font-family: "Slabo 27px", serif; padding: 20px; line-height: 1.6; }
         .container { 
-            max-width: 600px; margin: auto; background: #fff; padding: 40px; 
-            border: 1px solid #ddd; position: relative;
-            overflow: hidden;
+            max-width: 650px; margin: auto; background: #fff; padding: 40px; 
+            border: 2px solid #222; box-shadow: 15px 15px 0px rgba(0,0,0,0.1);
+            position: relative;
         }
         
-        /* 2. 视觉干扰：模拟不稳定的精神状态 */
-        h1 { border-bottom: 2px solid #000; padding-bottom: 10px; font-size: 24px; }
-        .post { border-bottom: 1px dotted #ccc; padding: 30px 0; position: relative; }
+        /* 规则怪谈列表样式 */
+        .rule-list { background: #f9f9f9; padding: 20px; border: 1px inset #ccc; font-size: 14px; line-height: 2; margin-bottom: 30px; }
+        .rule-list h2 { text-align: center; text-decoration: underline; color: #b22222; }
+        .important { color: #b22222; font-weight: bold; cursor: help; }
         
-        /* 3. 恐怖细节：这种红色文字平时看不见，需要特定操作 */
-        .scary-hint { color: #f00; font-size: 12px; opacity: 0; transition: opacity 2s; }
-        .post:hover .scary-hint { opacity: 0.1; } /* 鼠标放在文章上太久，红色阴影会慢慢浮现 */
+        /* 隐形文字：玩家需要全选（Ctrl+A）才能看到的违规规则 */
+        .hidden-rule { color: #fff; user-select: none; }
+        ::selection { background: #b22222; color: #fff; }
 
-        /* 4. 谜题区域 */
-        .photo-frame { text-align: center; margin: 20px 0; background: #000; padding: 10px; }
-        #monitorImg { width: 100%; max-width: 500px; filter: grayscale(100%) contrast(150%); }
+        /* 实验日记样式 */
+        .diary-section { border-left: 3px solid #b22222; padding-left: 15px; margin-top: 30px; font-style: italic; color: #444; }
+        .blood-stain { color: #800; font-weight: bold; }
+        .coordinate { color: #800; font-weight: bold; text-decoration: underline; cursor: pointer; }
+
+        /* 解码器面板 */
+        .decoder-grid {
+            margin-top: 50px; padding: 20px; background: #222; color: #0f0; 
+            font-family: monospace; font-size: 11px; border: 1px solid #444;
+        }
+        .code-input { background: #000; border: 1px solid #0f0; color: #0f0; width: 45px; text-align: center; margin: 0 5px; }
         
-        .binary-code { font-family: monospace; color: #999; font-size: 10px; word-break: break-all; }
+        /* 鼠标视线跟随 */
+        #watcher {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle at var(--x) var(--y), transparent 10%, rgba(0,0,0,0.1) 35%);
+            z-index: 9999;
+        }
+        .post-meta { font-size: 12px; color: #888; margin-top: 30px; text-align: right; }
     </style>
 </head>
 <body>
+    <div id="watcher"></div>
+
     <div class="container">
-        <h1>莫知的背面 (HIDDEN NODE)</h1>
-        <p><i>“如果你找到了这里，说明你和尤舍一样，一直在看着我。”</i></p>
+        <h1>2026-01-23：他在我的床头贴了这个</h1>
+        <p>昨晚睡着后，我感觉到有人在我的床头忙活。今早醒来，墙上贴着这张《租客守则》。</p>
+        <p>尤舍说这是为了我的安全，但我总觉得，这上面的每一条都在指涉<span class="important">现在的你</span>。</p>
 
-        <div class="post">
-            <h3>2026年1月24日：谁在动我的鼠标？</h3>
-            <p>我今天坐在电脑前，发现光标自己在慢慢移动。它停在我的照片上，左右晃动，就像有人在隔着屏幕抚摸我的脸。</p>
-            <p>尤舍说这是网络延迟。但我知道不是。那种感觉……就像<span class="scary-hint">你正在屏幕前做的那样。</span></p>
+        <div class="rule-list">
+            <h2>《404号公寓安全守脱》</h2>
+            <p>1. 请确保在深夜 2 点后关闭所有电子设备的摄像头。公寓不提供任何形式的实时直播服务。</p>
+            <p>2. 如果你听到墙壁内传来类似打字的声音，请忽略它。那是建筑结构受热膨胀的正常现象。</p>
+            <p>3. <span class="important">尤</span>舍房东不会在凌晨三点敲门要求查看水表。如果门外有人自称房东，请不要回应。</p>
+            <p>4. 严禁在房间内使用镜像软件。如果你在屏幕倒影中看到了第三个人，请立刻关闭电源并闭上眼睛。</p>
+            <p>5. <span class="important">舍</span>弃任何关于“逃跑”的念头。在这里，每一个【访问者】都是档案的一部分。</p>
+            <p class="hidden-rule">6. 真正的尤舍已经不在房间里了。他现在就站在你的屏幕后面。</p>
+            <p>7. <span class="important">是</span>否感觉到有人在注视？这是心理错觉，请继续点击网页寻找真相。</p>
+            <p>8. <span class="important">监</span>控系统并没有录音功能。所以，无论你现在对着屏幕说什么，我们都听不见。</p>
+            <p>9. <span class="important">控</span>制好你的呼吸，不要让它超过每分钟 20 次。它在听。</p>
         </div>
 
-        <div class="post">
-            <h3>关于“尤舍”的发现</h3>
-            <p>我在书房的垃圾桶里翻到了一张被撕碎的权限说明书。</p>
-            <p>上面写着：<b>“当 User 意识到自己是 User 时，实验即进入收割阶段。”</b></p>
-            <p>我不懂什么是收割。我只知道，他把我的每个房间都装了传感器。包括我现在写字的地方。</p>
-            
-            <div class="photo-frame">
-                <img id="monitorImg" src="room.png" alt="DATA_ERROR">
-                <p style="color: #666; font-size: 12px;">[ 实时传输片段：公寓 404 - 卧室 ]</p>
+        <hr>
+
+        <h2>违规实验记录</h2>
+        <p>尤舍觉得规则能困住我，但我开始记录每一次“违规”后的反馈。如果你想帮我，请点击并收集这些变动的数字。</p>
+
+        <div class="diary-section">
+            <p><strong>实验 01：关于声音与倒影</strong></p>
+            <p>我违反了第4条。我盯着关掉的电视屏幕看，直到角落闪过一个数字：<span class="coordinate" onclick="collect(1, '7')">【7】</span>。</p>
+            <p>随后我听见墙里的打字声停了。尤舍在短信里问我，为什么要数那台旧电视的像素点。</p>
+        </div>
+
+        <div class="diary-section">
+            <p><strong>实验 02：不存在的访客频率</strong></p>
+            <p>凌晨三点，敲门声响了。我没有回应，只是通过猫眼观察。走廊灯闪烁了 <span class="coordinate" onclick="collect(2, '12')">【12】</span> 下。在那之后，我感觉到手机微微发烫，显示有 <span class="coordinate" onclick="collect(3, '0')">【0】</span> 个未接来电，但通话记录里全是空白。</p>
+        </div>
+
+        <div class="diary-section">
+            <p>我发现他最怕的是这三个数字的组合：<strong>倒影、闪烁、电量</strong>。他称之为“系统漏洞”。</p>
+        </div>
+
+        <div class="decoder-grid">
+            <div>STATUS: MONITORING_USER</div>
+            <div>ENTRY_CODE: <span id="p1">?</span> - <span id="p2">?</span> - <span id="p3">?</span></div>
+            <div style="margin-top:10px;">
+                DECODE_INPUT: 
+                <input type="text" class="code-input" maxlength="1" id="i1" placeholder="倒影">
+                <input type="text" class="code-input" maxlength="2" id="i2" placeholder="闪烁">
+                <input type="text" class="code-input" maxlength="1" id="i3" placeholder="电量">
+                <button onclick="checkCode()" style="background:#0f0; border:none; color:#000; cursor:pointer; font-weight:bold;">执行</button>
             </div>
-            
-            <p>如果你想救我，你得把这张照片里的<b>“盲点”</b>找出来。那个数字，是他的管理员后台密码的最后三位。</p>
         </div>
 
-        <div class="post">
-            <p class="binary-code">
-                01101000 01100101 01101100 01110000 00100000 01101101 01100101
-                <br>提示：真相往往藏在“没有东西”的地方。
-            </p>
+        <div class="post-meta">
+            —— 莫知最后留下的标记：看那些标红的字。
+            <br>全选页面，看看规则第6条。
         </div>
     </div>
 
     <script>
-        // 增加一个心理恐怖交互：当玩家长时间不操作，弹出一个极短的提示
-        let timer;
-        document.onmousemove = function() {
-            clearTimeout(timer);
-            timer = setTimeout(function() {
-                console.warn("系统警告：监测到访问者（USER）长时间凝视。");
-            }, 10000);
-        };
+        // 1. 鼠标跟随逻辑
+        const watcher = document.getElementById('watcher');
+        document.addEventListener('mousemove', (e) => {
+            watcher.style.setProperty('--x', e.clientX + 'px');
+            watcher.style.setProperty('--y', e.clientY + 'px');
+        });
+
+        // 2. 线索收集逻辑
+        function collect(pos, val) {
+            document.getElementById('p' + pos).innerText = val;
+            alert("提取成功：已获得碎片数据 " + val);
+        }
+
+        // 3. 解码逻辑
+        function checkCode() {
+            const v1 = document.getElementById('i1').value;
+            const v2 = document.getElementById('i2').value;
+            const v3 = document.getElementById('i3').value;
+
+            if(v1 === '7' && v2 === '12' && v3 === '0') {
+                alert("【警告】\n检测到非法溢出。莫知：‘你做到了！快，趁他重启系统，去下载那张照片！’");
+                window.location.href = "evidence_photo.html"; 
+            } else {
+                alert("ACCESS_DENIED: 错误的逻辑序列。");
+            }
+        }
     </script>
 </body>
 </html>
