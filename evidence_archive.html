@@ -2,119 +2,136 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>系统底层存档 - [米时的遗言]</title>
+    <title>系统底层存档 - SUBJECT: MI_SHI</title>
     <style>
-        body { background-color: #1a1a1a; color: #444; font-family: "Courier New", monospace; overflow-x: hidden; }
+        /* 1. 基础环境：高对比度，确保能看清 */
+        body { background-color: #121212; color: #444; font-family: "Courier New", "Consolas", monospace; margin: 0; padding: 20px; }
         
-        /* 容器：模拟老旧监视器效果 */
-        .archive-wrapper { 
-            max-width: 800px; margin: 40px auto; background: #c0c0c0; 
-            border: 4px solid #888; padding: 0; box-shadow: inset 2px 2px 10px #000;
+        .archive-container { 
+            max-width: 850px; margin: auto; background: #dcdcdc; 
+            border: 5px double #333; position: relative; min-height: 90vh;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
 
-        .header-bar { background: #000080; color: white; padding: 5px 10px; font-weight: bold; display: flex; justify-content: space-between; }
-        
-        /* 内容区：叠加态视觉核心 */
-        .content-body { padding: 30px; position: relative; background: #e0e0e0; min-height: 500px; }
+        /* 顶部伪造导航栏 */
+        .sys-header { background: #000080; color: white; padding: 8px; font-size: 14px; display: flex; justify-content: space-between; }
 
-        /* 系统文字：干扰项 */
-        .system-layer { color: #bbb; user-select: none; line-height: 1.2; font-size: 12px; }
+        /* 2. 视觉表现：叠加态（叠影）核心 */
+        .content-area { padding: 40px; position: relative; line-height: 1.5; font-size: 14px; }
 
-        /* 米时的笔记：隐藏层 */
-        .mishi-layer { 
-            position: absolute; top: 30px; left: 30px; right: 30px;
-            color: rgba(255, 0, 0, 0.1); /* 初始极淡，全选后显现 */
-            font-size: 18px; font-weight: bold; pointer-events: none;
-            mix-blend-mode: darken;
+        /* 尤舍的底层：干扰阅读的系统字 */
+        .system-noise { 
+            color: #bbb; opacity: 0.5; user-select: none; 
+            text-transform: uppercase; word-break: break-all;
         }
 
-        /* 全选时的颜色：解谜关键 */
-        ::selection { background: #000; color: #ff0000 !important; }
+        /* 米时的涂鸦：高对比红色，初始透明度设为 0.05，全选即现 */
+        .mishi-graffiti { 
+            position: absolute; top: 40px; left: 40px; right: 40px;
+            color: rgba(180, 0, 0, 0.05); /* 极淡的红色，隐藏效果 */
+            font-size: 18px; font-weight: 900; pointer-events: none;
+            mix-blend-mode: darken; white-space: pre-wrap;
+        }
 
-        /* 解密终端 */
-        .terminal { background: #000; color: #0f0; padding: 20px; margin-top: 20px; font-family: monospace; }
-        .terminal input { background: #000; border: 1px solid #0f0; color: #0f0; width: 100px; }
+        /* 强制全选样式：确保全选后字体极度清晰 */
+        ::selection { background: #000 !important; color: #ff0000 !important; }
+        ::-moz-selection { background: #000 !important; color: #ff0000 !important; }
 
-        .loop-btn { color: #0000ff; text-decoration: underline; cursor: pointer; }
-        
-        /* 疯狂的涂鸦文字 */
-        .blood { color: #800; text-decoration: line-through; }
+        /* 3. 解密终端 */
+        .terminal-box { 
+            background: #000; color: #0f0; padding: 20px; font-family: monospace;
+            border-top: 3px solid #000080;
+        }
+        .terminal-box input { background: #000; border: 1px solid #0f0; color: #0f0; width: 120px; font-size: 16px; margin: 10px 0; }
+        .terminal-box button { background: #0f0; color: #000; border: none; padding: 5px 15px; cursor: pointer; font-weight: bold; }
+
+        .blood-text { color: #800; text-decoration: underline; font-style: normal; }
     </style>
 </head>
 <body>
 
-<div class="archive-wrapper">
-    <div class="header-bar">
-        <span>ARCHIVE_DEPT_404 // SUBJECT: MI_SHI</span>
-        <span onclick="tryExit()" style="cursor:help;">[X]</span>
+<div class="archive-container">
+    <div class="sys-header">
+        <span>DEVICE_04 // SECTOR_DEEP_ARCHIVE // USER: MI_SHI</span>
+        <span style="cursor:not-allowed;">[ ERROR: EXIT_LOCKED ]</span>
     </div>
 
-    <div class="content-body">
-        <div class="system-layer">
-            STABLE LOG DATA STABLE LOG DATA STABLE LOG DATA STABLE LOG DATA<br>
-            NORMAL STATUS NORMAL STATUS NORMAL STATUS NORMAL STATUS NORMAL STATUS<br>
-            ... (此处重复千百次) ...
+    <div class="content-area">
+        <div class="system-noise">
+            STABLE LOG DATA STABLE LOG DATA STABLE LOG DATA STABLE LOG DATA STABLE LOG DATA
+            NORMAL STATUS NORMAL STATUS NORMAL STATUS NORMAL STATUS NORMAL STATUS NORMAL STATUS
+            DATA_LOGGED_USER_SYSTEM_STABLE_404_NULL_LOGGED_LOGGED_LOGGED_LOGGED...
+            (此处应充满整个屏幕以干扰视觉，可根据需要复制多行)
         </div>
 
-        <div class="mishi-layer">
-            <p>我是米时。我快要消失了。<br>
-            尤舍的守则是陷阱！<br>
-            规则1说2点宵禁？<span class="blood">那是骗你的</span>。真正的死线要提前 <span style="font-size:30px">5</span> 个小时。记下这个偏移。<br><br>
-            他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...他在听...<br><br>
-            数数上面我写了几个“他在听”。那是第二位数字。<br><br>
-            密码的最后：莫知提到的呼吸频率 [28] 减去规则值 [20]，得到的那个数字，再乘以 <span style="border:1px solid red">2</span>。<br><br>
-            别想往前走。这个页面是死循环。所有的链接都会带你回到这里。<br>
-            唯一的出口在你走过的路上。
+        <div class="mishi-graffiti">
+            <p>我是米时。我快要被“回收”了。<br>
+不要相信尤舍的规则！<br><br>
+针对规则 3（敲门）：<br>
+“他没在敲门！他在敲你的头盖骨！我已经听见裂缝的声音了。如果敲门声超过 13 下，就代表他已经进来了，正坐在你的影子里。”<br><br>
+针对规则 6（关于尤舍）：<br>
+“尤舍不是人名。尤舍是‘U-S’，也是‘User’。我们不是房客，我们是给它喂食的 <span class="blood-text">【算力源】</span>。它需要我们的恐惧来维持服务器的运转。”<br><br>
+【解密提示 A】：<br>
+规则 1 是假的，真正的宵禁要早 5 个小时。记住那个时间差。<br><br>
+【解密提示 B】：<br>
+我在床板下留了 <span class="blood-text">9</span> 个刻痕，加上莫知的 <span class="blood-text">3</span> 次求救。把它们合在一起。<br><br>
+【解密提示 C】：<br>
+死。死。死。死。死。死。死。<br>
+看啊，死。数数这里写了多少次死。那是第一位数字。<br><br>
+【解密提示 D】：<br>
+颜色...红色 (#FF0000) 的末位是 0，但这里的血色是不纯的。
+尤舍在看你。尤舍在看你。尤舍在看你。
             </p>
         </div>
     </div>
 
-    <div class="terminal">
-        <div>[LOGIC_LOCK_v0.99]</div>
-        <div>请输入从米时笔记中提取的序列:</div>
-        <input type="text" id="mishi_code" placeholder="序列输入">
-        <button onclick="checkMishi()">验证</button>
-        <p id="hint-msg" style="color:#555; font-size:10px;"></p>
+    <div class="terminal-box">
+        <div>[ 逻辑核心已挂载 ]</div>
+        <div>请输入 4 位频率序列 (提示：死数 - 时间差 - 刻痕求救总数 - 颜色码末位):</div>
+        <input type="text" id="final_code" maxlength="6" placeholder="????">
+        <button onclick="verifyCode()">验证权限</button>
+        <p id="msg" style="font-size: 12px; margin-top: 10px;"></p>
     </div>
 </div>
 
 <script>
-    // 逻辑 A 计算：
-    // 1. 宵禁偏移：5
-    // 2. “他在听”出现的次数：代码中我写了 20 次
-    // 3. (28-20)*2 = 16
-    // 最终组合序列：52016
+    /* 解谜逻辑对照：
+       1. "死"字计数：我在上面写了 8 个（7个连写 + 1个单独）。 --> [8]
+       2. 时间差：原规则 1 (2点) - 5小时 = 3 (取绝对值)。 --> [3]
+       3. 刻痕(9) + 求救(3) = 12。 --> [12]
+       4. 颜色码末位：红色 #FF0000 的末位数字是 0。 --> [0]
+       
+       最终序列：83120
+    */
 
-    function checkMishi() {
-        const val = document.getElementById('mishi_code').value;
-        if(val === '52016') {
-            document.getElementById('hint-msg').innerHTML = "逻辑正确。系统检测到‘回退’意识。请点击浏览器【后退】按钮三次以跳出循环。";
-            // 这里利用 sessionStorage 记录状态，配合后退逻辑
-            sessionStorage.setItem("escaped", "true");
+    function verifyCode() {
+        const code = document.getElementById('final_code').value;
+        if(code === '83120') {
+            document.getElementById('msg').style.color = "#0f0";
+            document.getElementById('msg').innerHTML = "权限提升！莫比乌斯环已断裂。不要点网页任何位置！请连续点击浏览器【后退】按钮 3 次，逃离这个档案库。";
+            sessionStorage.setItem("loop_broken", "true");
         } else {
-            alert("米时的灵魂在尖叫：‘数字不对！你在被尤舍同化！’");
+            document.getElementById('msg').style.color = "#f00";
+            document.getElementById('msg').innerHTML = "CODE_ERROR: 逻辑不兼容。你在被尤舍同化。";
         }
     }
 
-    // 莫比乌斯环逻辑：点击页面会刷新
+    // 莫比乌斯环逻辑：点击页面任何地方都会“刷新历史”，防止用户轻易离开
     document.addEventListener('click', function(e) {
         if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
-            console.log("循环已重置...");
+            history.pushState(null, null, document.URL);
         }
     });
 
-    function tryExit() {
-        alert("你点不开的。在这个档案库里，前进就是后退，后退才是唯一的生机。");
-    }
-
-    // 监听后退事件（高级技巧：模拟莫比乌斯环突破）
+    // 监听后退键以实现真正的“跳出”
     window.onpopstate = function(event) {
-        if(sessionStorage.getItem("escaped") === "true") {
-            alert("你终于逃出了档案库。正在进入莫知最后的藏身处...");
+        if(sessionStorage.getItem("loop_broken") === "true") {
+            alert("正在脱离底层系统...进入莫知最后的藏身处...");
             window.location.href = "last_sanctuary.html";
         }
     };
-    // 维持历史状态以便能“后退”
+    
+    // 初始化历史栈
     history.pushState(null, null, document.URL);
 </script>
 
