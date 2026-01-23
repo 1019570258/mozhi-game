@@ -2,64 +2,39 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>莫知的背面 - 观测记录与警告</title>
+    <title>莫知的背面 - 紧急警告</title>
     <style>
-        /* 基础样式 */
-        body { background-color: #d1d1d1; color: #1a1a1a; font-family: "Slabo 27px", serif; padding: 20px; line-height: 1.6; }
+        body { background-color: #d1d1d1; color: #1a1a1a; font-family: "Slabo 27px", serif; padding: 20px; }
         .container { 
-            max-width: 650px; margin: auto; background: #fff; padding: 40px; 
+            max-width: 600px; margin: auto; background: #fff; padding: 40px; 
             border: 2px solid #222; box-shadow: 15px 15px 0px rgba(0,0,0,0.1);
             position: relative;
         }
-        
-        /* 规则怪谈列表 */
-        .rule-list { background: #f9f9f9; padding: 20px; border: 1px inset #ccc; font-size: 14px; line-height: 2; margin-bottom: 30px; }
+        .rule-list { background: #f9f9f9; padding: 20px; border: 1px inset #ccc; font-size: 14px; line-height: 2; }
         .rule-list h2 { text-align: center; text-decoration: underline; color: #b22222; }
-        .important { color: #b22222; font-weight: bold; cursor: help; }
+        .important { color: #b22222; font-weight: bold; }
         
-        /* 【关键修复】全选时的颜色设置 */
-        /* 当玩家按下 Ctrl+A 时，背景变为血红色，文字变为纯白，隐藏的规则 6 就会像伤疤一样显现 */
-        ::selection { 
-            background: #b22222 !important; 
-            color: #ffffff !important; 
-        }
-        /* 兼容火狐浏览器 */
-        ::-moz-selection { 
-            background: #b22222 !important; 
-            color: #ffffff !important; 
-        }
+        /* 隐形文字逻辑 */
+        .hidden-rule { color: #fff; user-select: text; }
+        ::selection { background: #b22222 !important; color: #fff !important; }
+        ::-moz-selection { background: #b22222 !important; color: #fff !important; }
 
-        /* 隐藏规则 6 的初始状态：完全透明且不占位（或颜色与背景一致） */
-        .hidden-rule { 
-            color: transparent; 
-            user-select: text; 
-            transition: color 0.3s;
-        }
-
-        /* 实验日记 */
-        .diary-section { border-left: 3px solid #b22222; padding-left: 15px; margin-top: 30px; font-style: italic; color: #444; }
-        .coordinate { color: #800; font-weight: bold; text-decoration: underline; cursor: pointer; }
-
+        /* 实验记录样式：增加神秘感 */
+        .experiment-log { margin-top: 40px; border-top: 2px dashed #333; padding-top: 20px; }
+        .diary-entry { border-left: 3px solid #b22222; padding-left: 15px; margin-bottom: 30px; font-style: italic; color: #444; }
+        .hint-click { color: #007bff; text-decoration: underline; cursor: help; font-style: normal; }
+        
         /* 解码器面板 */
-        .decoder-grid {
-            margin-top: 50px; padding: 20px; background: #222; color: #0f0; 
-            font-family: monospace; font-size: 11px; border: 1px solid #444;
+        .decoder-box {
+            background: #1a1a1a; color: #0f0; padding: 20px; font-family: monospace;
+            border: 2px solid #333; margin-top: 40px;
         }
-        .code-input { background: #000; border: 1px solid #0f0; color: #0f0; width: 45px; text-align: center; margin: 0 5px; }
-        
-        /* 鼠标跟随视线 */
-        #watcher {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            background: radial-gradient(circle at var(--x) var(--y), transparent 10%, rgba(0,0,0,0.1) 35%);
-            z-index: 9999;
-        }
+        .decoder-box input { background: #000; border: 1px solid #0f0; color: #0f0; width: 60px; text-align: center; margin: 5px; }
+
         .post-meta { font-size: 12px; color: #888; margin-top: 30px; text-align: right; }
     </style>
 </head>
 <body>
-    <div id="watcher"></div>
-
     <div class="container">
         <h1>2026-01-23：他在我的床头贴了这个</h1>
         <p>昨晚睡着后，我感觉到有人在我的床头忙活。今早醒来，墙上贴着这张《租客守则》。</p>
@@ -67,43 +42,50 @@
 
         <div class="rule-list">
             <h2>《404号公寓安全守则》</h2>
-            <p>1. 请确保在深夜 2 点后关闭所有电子设备的摄像头。公寓不提供任何形式的实时直播服务。</p>
+            <p>1. 请确保在深夜 <span class="important">2</span> 点后关闭所有电子设备的摄像头。公寓不提供任何形式的实时直播服务。</p>
             <p>2. 如果你听到墙壁内传来类似打字的声音，请忽略它。那是建筑结构受热膨胀的正常现象。</p>
             <p>3. <span class="important">尤</span>舍房东不会在凌晨三点敲门要求查看水表。如果门外有人自称房东，请不要回应。</p>
             <p>4. 严禁在房间内使用镜像软件。如果你在屏幕倒影中看到了第三个人，请立刻关闭电源并闭上眼睛。</p>
             <p>5. <span class="important">舍</span>弃任何关于“逃跑”的念头。在这里，每一个【访问者】都是档案的一部分。</p>
-           <p>6.没有规则6 <span class="hidden-rule">6. 真正的尤舍已经不在房间里了。他现在就站在你的屏幕后面。</span></p>
+            <p>6.没有规则6。<span class="hidden-rule">6. 真正的尤舍已经不在房间里了。他现在就站在你的屏幕后面。</span></p>
             <p>7. <span class="important">是</span>否感觉到有人在注视？这是心理错觉，请继续点击网页寻找真相。</p>
             <p>8. <span class="important">监</span>控系统并没有录音功能。所以，无论你现在对着屏幕说什么，我们都听不见。</p>
-            <p>9. <span class="important">控</span>制好你的呼吸，不要让它超过每分钟 20 次。它在听。</p>
+            <p>9. <span class="important">控</span>制好你的呼吸，不要让它超过每分钟 <span class="important">20</span> 次。它在听。</p>
         </div>
 
-        <hr>
+        <div class="experiment-log">
+            <h2>违规实验记录：寻找“偏差”</h2>
+            <p style="font-size: 13px; color: #666;">
+                尤舍在利用规则重塑我的现实。但我发现，当现实与规则发生**偏差**时，系统会产生无法抹除的“余数”。
+                请拿好纸笔，记下规则中的限制值，并观察我记录到的真实情况。
+            </p>
 
-        <h2>违规实验记录</h2>
-        <p>尤舍觉得规则能困住我，但我开始记录每一次“违规”后的反馈。如果你想帮我，请点击并收集这些变动的数字。</p>
-
-        <div class="diary-section">
-            <p><strong>实验 01：关于声音与倒影</strong></p>
-            <p>我违反了第4条。我盯着关掉的电视屏幕看，直到角落闪过一个数字：<span class="coordinate" onclick="collect(1, '7')">【7】</span>。</p>
-            <p>随后我听见墙里的打字声停了。尤舍在短信里问我，为什么要数那台旧电视的像素点。</p>
-        </div>
-
-        <div class="diary-section">
-            <p><strong>实验 02：不存在的访客频率</strong></p>
-            <p>凌晨三点，敲门声响了。我没有回应，只是通过猫眼观察。走廊灯闪烁了 <span class="coordinate" onclick="collect(2, '12')">【12】</span> 下。在那之后，我感觉到手机微微发烫，显示有 <span class="coordinate" onclick="collect(3, '0')">【0】</span> 个未接来电，但通话记录里全是空白。</p>
-        </div>
-
-        <div class="decoder-grid">
-            <div>STATUS: MONITORING_USER</div>
-            <div>ENTRY_CODE: <span id="p1">?</span> - <span id="p2">?</span> - <span id="p3">?</span></div>
-            <div style="margin-top:10px;">
-                DECODE_INPUT: 
-                <input type="text" class="code-input" maxlength="1" id="i1" placeholder="倒影">
-                <input type="text" class="code-input" maxlength="2" id="i2" placeholder="闪烁">
-                <input type="text" class="code-input" maxlength="1" id="i3" placeholder="电量">
-                <button onclick="checkCode()" style="background:#0f0; border:none; color:#000; cursor:pointer; font-weight:bold;">执行</button>
+            <div class="diary-entry">
+                <strong>实验 A：异常的时间感知</strong><br>
+                按照规则 1，深夜后禁止使用摄像头。可我刚才发现电脑启动了，右下角的时间显示是 <span class="hint-click" onclick="alert('莫知的笔记：屏幕显示 09:00。这不可能，窗外明明是深夜。')">【查看屏幕】</span>。
+                我记下了这个时间与规则 1 规定时间的**差值**。
             </div>
+
+            <div class="diary-entry">
+                <strong>实验 B：敲门的次数</strong><br>
+                规则 3 提到的敲门声是固定的。但我数了，那个自称房东的东西，刚才足足敲了 <span class="hint-click" onclick="alert('莫知的笔记：我数了，一共 15 下，他在外面等了很久。')">【查看计数】</span> 下。
+                这个多出来的**偏移量**是密码的第二位。
+            </div>
+
+            <div class="diary-entry">
+                <strong>实验 C：失控的生理指标</strong><br>
+                规则 9 限制了呼吸。可由于恐惧，我现在的呼吸频率已经达到了每分钟 <span class="hint-click" onclick="alert('莫知的笔记：28次。我可以听到自己的心跳声，太快了。')">【查看数值】</span> 次。
+                这个**违约值**是最后的关键。
+            </div>
+        </div>
+
+        <div class="decoder-box">
+            <div>[ ACCESS_OVERRIDE ]</div>
+            <div>请输入计算后的偏移量 (实际值 - 规则值):</div>
+            <input type="text" id="val1" placeholder="差值1">
+            <input type="text" id="val2" placeholder="差值2">
+            <input type="text" id="val3" placeholder="差值3">
+            <button onclick="validate()" style="cursor:pointer; padding: 2px 10px;">执行溢出</button>
         </div>
 
         <div class="post-meta">
@@ -113,27 +95,20 @@
     </div>
 
     <script>
-        const watcher = document.getElementById('watcher');
-        document.addEventListener('mousemove', (e) => {
-            watcher.style.setProperty('--x', e.clientX + 'px');
-            watcher.style.setProperty('--y', e.clientY + 'px');
-        });
+        function validate() {
+            // 计算逻辑：
+            // A: 9 - 2 = 7
+            // B: 15 - 3 = 12
+            // C: 28 - 20 = 8
+            const a = document.getElementById('val1').value;
+            const b = document.getElementById('val2').value;
+            const c = document.getElementById('val3').value;
 
-        function collect(pos, val) {
-            document.getElementById('p' + pos).innerText = val;
-            alert("提取成功：已获得碎片数据 " + val);
-        }
-
-        function checkCode() {
-            const v1 = document.getElementById('i1').value;
-            const v2 = document.getElementById('i2').value;
-            const v3 = document.getElementById('i3').value;
-
-            if(v1 === '7' && v2 === '12' && v3 === '0') {
-                alert("【警告】\n检测到非法溢出。莫知：‘你做到了！快，趁他重启系统，去下载那张照片！’");
-                window.location.href = "evidence_photo.html"; 
+            if(a === '7' && b === '12' && c === '8') {
+                alert("【权限溢出成功】\n莫知：‘数据层已经崩溃了！快，趁他重启前，去看那些被隐藏的【档案】！’");
+                window.location.href = "evidence_archive.html"; 
             } else {
-                alert("ACCESS_DENIED: 错误的逻辑序列。");
+                alert("ERROR: 逻辑校验失败。请重新核对守则规定值。");
             }
         }
     </script>
